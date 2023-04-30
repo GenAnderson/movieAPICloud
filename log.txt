@@ -1,30 +1,5 @@
-URL: /
-Timestamp: Wed Apr 26 2023 13:20:08 GMT-1000 (Hawaii-Aleutian Standard Time)
-
-URL: /favicon.ico
-Timestamp: Wed Apr 26 2023 13:20:08 GMT-1000 (Hawaii-Aleutian Standard Time)
-
-URL: /
-Timestamp: Wed Apr 26 2023 13:21:42 GMT-1000 (Hawaii-Aleutian Standard Time)
-
-URL: /favicon.ico
-Timestamp: Wed Apr 26 2023 13:21:42 GMT-1000 (Hawaii-Aleutian Standard Time)
-
-URL: /
-Timestamp: Wed Apr 26 2023 13:29:48 GMT-1000 (Hawaii-Aleutian Standard Time)
-
-URL: /favicon.ico
-Timestamp: Wed Apr 26 2023 13:29:48 GMT-1000 (Hawaii-Aleutian Standard Time)
-
-URL: /documentation
-Timestamp: Wed Apr 26 2023 13:29:55 GMT-1000 (Hawaii-Aleutian Standard Time)
-
-URL: /favicon.ico
-Timestamp: Wed Apr 26 2023 13:29:55 GMT-1000 (Hawaii-Aleutian Standard Time)
-
-URL: /asdf
-Timestamp: Wed Apr 26 2023 13:30:16 GMT-1000 (Hawaii-Aleutian Standard Time)
-
-URL: /favicon.ico
-Timestamp: Wed Apr 26 2023 13:30:16 GMT-1000 (Hawaii-Aleutian Standard Time)
-
+::1 - - [29/Apr/2023:21:46:22 +0000] "GET / HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36"
+::1 - - [29/Apr/2023:21:46:35 +0000] "GET /documentation.html HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36"
+::1 - - [29/Apr/2023:21:46:45 +0000] "GET /movies HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36"
+::1 - - [29/Apr/2023:21:47:30 +0000] "GET /er HTTP/1.1" 404 141 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36"
+::1 - - [29/Apr/2023:21:52:47 +0000] "GET / HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36"
