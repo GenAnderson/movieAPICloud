@@ -7,12 +7,114 @@
     <title>Documentation</title>
   </head>
   <body>
-    <h1>Documentation Page</h1>
+    <h1>Documentation Page for MyFlix</h1>
 
     <p>
       This api will allow you to receive information on movies, directors, and
       genres as well as create your own profile so data can be saved about your
       favorite movies
     </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Business Logic</th>
+          <th>URL</th>
+          <th>HTTP Method</th>
+          <th>Query Parameter</th>
+          <th>Request data format</th>
+          <th>Response data body format</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Get a list of all movies</td>
+          <td>/movies</td>
+          <td>GET</td>
+          <td>None</td>
+          <td>None</td>
+          <td>A JSON object holding data about all movies</td>
+        </tr>
+        <tr>
+          <td>Get data about a single movie by name</td>
+          <td>/movies/:title</td>
+          <td>GET</td>
+          <td>:title</td>
+          <td>None</td>
+          <td>
+            A JSON object holding data about a single movie, containing a
+            description, genre, director, image URL, and whether it's featured
+            or not
+          </td>
+        </tr>
+        <tr>
+          <td>Get data about a genre (description) by name/title</td>
+          <td>/movies/:name/genre</td>
+          <td>GET</td>
+          <td>:name</td>
+          <td>None</td>
+          <td>A JSON object holding data about a specific genre</td>
+        </tr>
+        <tr>
+          <td>Get data about a director by name</td>
+          <td>/movies/:name/:director</td>
+          <td>GET</td>
+          <td>:name :director</td>
+          <td>None</td>
+          <td>
+            A JSON object holding data about a director (bio, birth year, death
+            year)
+          </td>
+        </tr>
+
+        <tr>
+          <td>Allow new users to register</td>
+          <td>/users</td>
+          <td>POST</td>
+          <td>None</td>
+
+          <td>
+            A JSON object holding data about the user to add like: {"id": "",
+            "name": "", "favoriteMovies": ""}
+          </td>
+          <td>
+            A JSON object holding data about the user that was added, including
+            an ID
+          </td>
+        </tr>
+        <tr>
+          <td>Allow users to update their user info (username)</td>
+          <td>/users/:id</td>
+          <td>PUT</td>
+          <td>:id</td>
+          <td>None</td>
+          <td>A text message indicating the username was updated</td>
+        </tr>
+        <tr>
+          <td>Allow users to add a movie to their list of favorites</td>
+          <td>/users/:id/:movieTitle</td>
+          <td>POST</td>
+          <td>:id :movieTitle</td>
+          <td>None</td>
+          <td>A text message indicating the movie was added</td>
+        </tr>
+        <tr>
+          <td>Allow users to remove a movie from their list of favorites</td>
+          <td>/users/:id/:movieTitle</td>
+          <td>DELETE</td>
+          <td>:id :movieTitle</td>
+          <td>None</td>
+          <td>A text message indicating the movie was removed</td>
+        </tr>
+        <tr>
+          <td>Allow existing users to deregister</td>
+          <td>/users/:id</td>
+          <td>DELETE</td>
+          <td>:id</td>
+          <td>None</td>
+          <td>A text message indicating the user was removed</td>
+        </tr>
+      </tbody>
+    </table>
   </body>
 </html>
