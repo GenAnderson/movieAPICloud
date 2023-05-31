@@ -221,6 +221,13 @@ app.put(
     check("Email", "Email does not appear to be valid").isEmail(),
   ],
   (req, res) => {
+    // check the validation object for errors
+    let errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
+
     Users.findOneAndUpdate(
       { Username: req.params.Username },
       {
