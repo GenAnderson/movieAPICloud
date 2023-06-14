@@ -223,6 +223,7 @@ app.put(
   (req, res) => {
     // check the validation object for errors
     let errors = validationResult(req);
+    let hashedPassword = Users.hashPassword(req.body.Password);
 
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
@@ -233,7 +234,7 @@ app.put(
       {
         $set: {
           Username: req.body.Username,
-          Password: req.body.Password,
+          Password: hashedPassword,
           Email: req.body.Email,
           Birthday: req.body.Birthday,
         },
