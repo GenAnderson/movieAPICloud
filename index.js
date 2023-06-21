@@ -148,7 +148,12 @@ app.post(
   "/users",
   // validation logic
   [
-    check("Username", "Username is required").isLength({ min: 5 }),
+    check(
+      "Username",
+      "Username needs to be 5 or more letters/numbers"
+    ).isLength({
+      min: 5,
+    }),
     check(
       "Username",
       "Username contains non alphanumeric characters - not allowed."
@@ -212,7 +217,10 @@ app.put(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }), // validation logic
   [
-    check("Username", "Username is required").isLength({ min: 5 }),
+    check(
+      "Username",
+      "Username needs to be 5 or more letters/numbers"
+    ).isLength({ min: 5 }),
     check(
       "Username",
       "Username contains non alphanumeric characters - not allowed."
