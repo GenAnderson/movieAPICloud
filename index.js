@@ -148,10 +148,7 @@ app.post(
   "/users",
   // validation logic
   [
-    check(
-      "Username",
-      "Username needs to be 5 or more letters/numbers"
-    ).isLength({
+    check("Username", "Username needs more than 5 letters").isLength({
       min: 5,
     }),
     check(
@@ -216,18 +213,17 @@ app.get(
 app.put(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }), // validation logic
-  [
-    check(
-      "Username",
-      "Username needs to be 5 or more letters/numbers"
-    ).isLength({ min: 5 }),
-    check(
-      "Username",
-      "Username contains non alphanumeric characters - not allowed."
-    ).isAlphanumeric(),
-    check("Password", "Password is required").not().isEmpty(),
-    check("Email", "Email does not appear to be valid").isEmail(),
-  ],
+  // [
+  //   check("Username", "Username needs to be more than 5 letters").isLength({
+  //     min: 5,
+  //   }),
+  //   check(
+  //     "Username",
+  //     "Username contains non alphanumeric characters - not allowed."
+  //   ).isAlphanumeric(),
+  //   check("Password", "Password is required").not().isEmpty(),
+  //   check("Email", "Email does not appear to be valid").isEmail(),
+  // ],
   (req, res) => {
     // check the validation object for errors
     let errors = validationResult(req);
