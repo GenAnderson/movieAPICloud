@@ -234,14 +234,13 @@ app.put(
       },
       { new: true }
     )
-      .then((user) => res.status(200).json(user))
-      // {
-      //   if (!user) {
-      //     return res.status(404).send("Error: User not found");
-      //   } else {
-      //     return res.status(200).json(user);
-      //   }
-      // })
+      .then((user) => {
+        if (!user) {
+          return res.status(404).send("Error: User not found");
+        } else {
+          return res.json(user);
+        }
+      })
       .catch((err) => {
         console.error(err);
         res.status(500).send("Error: " + err);
