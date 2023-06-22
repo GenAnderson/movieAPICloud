@@ -212,18 +212,7 @@ app.get(
 // Update user
 app.put(
   "/users/:Username",
-  passport.authenticate("jwt", { session: false }), // validation logic
-  // [
-  //   check("Username", "Username needs to be more than 5 letters").isLength({
-  //     min: 5,
-  //   }),
-  //   check(
-  //     "Username",
-  //     "Username contains non alphanumeric characters - not allowed."
-  //   ).isAlphanumeric(),
-  //   check("Password", "Password is required").not().isEmpty(),
-  //   check("Email", "Email does not appear to be valid").isEmail(),
-  // ],
+  passport.authenticate("jwt", { session: false }),
   (req, res) => {
     // check the validation object for errors
     let errors = validationResult(req);
@@ -249,7 +238,7 @@ app.put(
         if (!user) {
           return res.status(404).send("Error: User not found");
         } else {
-          res.json(user);
+          return res.status(200).json(user);
         }
       })
       .catch((err) => {
