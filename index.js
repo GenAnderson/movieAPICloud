@@ -216,7 +216,7 @@ app.get(
   function (req, res) {
     Users.findOne({ Username: req.params.Username })
       .then(function (user) {
-        res.status(201).json(user);
+        return res.status(201).json(user);
       })
       .catch(function (err) {
         console.error(err);
