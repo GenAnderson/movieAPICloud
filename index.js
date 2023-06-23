@@ -209,6 +209,22 @@ app.get(
   }
 );
 
+// Get one user
+app.get(
+  "/users/:Username",
+  passport.authenticate("jwt", { session: false }),
+  function (req, res) {
+    Users.findOne({ Username: req.params.Username })
+      .then(function (user) {
+        res.status(201).json(user);
+      })
+      .catch(function (err) {
+        console.error(err);
+        res.status(500).send("Error: " + err);
+      });
+  }
+);
+
 // Update user
 app.put(
   "/users/:Username",
