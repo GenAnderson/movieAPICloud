@@ -22,6 +22,7 @@ const cors = require("cors");
 // restrict origin using CORS
 let allowedOrigins = [
   "http://localhost:8080",
+  "http://localhost:1234",
   "http://testsite.com",
   "https://bestmovielist.netlify.app",
 ];
