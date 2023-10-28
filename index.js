@@ -26,6 +26,7 @@ let allowedOrigins = [
   "http://localhost:4200",
   "http://testsite.com",
   "https://bestmovielist.netlify.app",
+  "https://genanderson.github.io/myFlix-Angular/welcome",
 ];
 
 app.use(
