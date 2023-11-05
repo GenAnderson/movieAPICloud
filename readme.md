@@ -7,7 +7,9 @@ This is a REST API backend server for the following apps that are also in my rep
 
 ## Documentation page
 
-Provides a table explaining what's needed to retrieve information using the api
+A documentation table is provided to explain what's needed to retrieve information using the moviesAPI
+
+https://movieapi-yazx.onrender.com/documentation.html
 
 ## Tech Stack
 
