@@ -1,9 +1,11 @@
 const express = require("express"),
   morgan = require("morgan"),
   bodyParser = require("body-parser"),
-  uuid = require("uuid"),
   mongoose = require("mongoose"),
-  Models = require("./models.js");
+  Models = require("./models.js"),
+  multer = require("multer"),
+  multerS3 = require("multer-s3"),
+  aws = require("aws-sdk");
 
 const app = express();
 
@@ -12,6 +14,28 @@ const { check, validationResult } = require("express-validator");
 app.use(morgan("common"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// AWS configurations
+aws.config.update({
+  accessKeyId: "AKIAVEILPDOZWNUVOZNS",
+  secretAccessKey: "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",
+  region: "us-east-1",
+});
+
+const s3 = new aws.S3();
+
+// Set up multer with S3 storage
+const upload = multer({
+  storage: multerS3({
+    s3: s3,
+    bucket: "imagebucketresizer",
+    acl: "public-read", // Set the ACL for the uploaded file
+    key: function (req, file, cb) {
+      // Define the key (filename) for the uploaded file
+      cb(null, "original-image-" + Date.now() + "-" + file.originalname);
+    },
+  }),
+});
 
 // allows CORs
 const cors = require("cors");
@@ -332,6 +356,32 @@ app.delete(
       });
   }
 );
+
+// Add image to user profile
+app.post("/users/:Username/upload", upload.single("file"), (req, res) => {
+  const file = req.file;
+  if (!file) {
+    return res.status(400).json({ error: "No file uploaded" });
+  }
+
+  // Optionally, you can access the file URL in your S3 bucket
+  const fileUrl = file.location;
+
+  // Assuming the resized image has the same filename but with a different prefix
+  const resizedFileKey = file.key.replace(
+    "original-image",
+    "resized-original-images"
+  );
+
+  // Optionally, you can access the file URL of the resized image in your S3 bucket
+  const resizedFileUrl = `https://imagebucketresizer.s3.amazonaws.com/${resizedFileKey}`;
+
+  res.json({
+    message: "File uploaded and resized successfully",
+    fileUrl,
+    resizedFileUrl,
+  });
+});
 
 // Delete a user
 app.delete(
