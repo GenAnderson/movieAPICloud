@@ -15,13 +15,6 @@ app.use(morgan("common"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// AWS configurations
-aws.config.update({
-  accessKeyId: "AKIAVEILPDOZWNUVOZNS",
-  secretAccessKey: "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",
-  region: "us-east-1",
-});
-
 const s3 = new aws.S3();
 
 // Set up multer with S3 storage
