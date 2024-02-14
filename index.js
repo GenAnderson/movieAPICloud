@@ -83,6 +83,8 @@ mongoose.connect(process.env.CONNECTION_URI, {
   useUnifiedTopology: true,
 });
 
+console.log("MongoDB Connection URI:", process.env.CONNECTION_URI);
+
 // welcome page response to user
 app.get("/", (req, res) => {
   res.send("Welcome to my movies app! There's still a lot of work to be done!");
