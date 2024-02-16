@@ -83,7 +83,6 @@ mongoose.connect(process.env.CONNECTION_URI, {
   useUnifiedTopology: true,
 });
 
-console.log("MongoDB Connection URI:", process.env.CONNECTION_URI);
 
 // welcome page response to user
 app.get("/", (req, res) => {
@@ -224,21 +223,6 @@ app.post(
       .catch((error) => {
         console.error(error);
         res.status(500).send("Error:" + error);
-      });
-  }
-);
-
-app.get(
-  "/users",
-  passport.authenticate("jwt", { session: false }),
-  function (req, res) {
-    Users.find()
-      .then(function (users) {
-        res.status(201).json(users);
-      })
-      .catch(function (err) {
-        console.error(err);
-        res.status(500).send("Error: " + err);
       });
   }
 );
