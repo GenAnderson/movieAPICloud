@@ -42,6 +42,7 @@ let allowedOrigins = [
   "http://localhost:1234",
   "http://localhost:4200",
   "http://localhost:3000",
+  "https://localhost:3000",
   "http://testsite.com",
   "https://bestmovielist.netlify.app",
   "https://genanderson.github.io",
@@ -82,7 +83,6 @@ mongoose.connect(process.env.CONNECTION_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
-
 
 // welcome page response to user
 app.get("/", (req, res) => {
@@ -389,7 +389,7 @@ app.use((err, req, res, next) => {
   res.status(500).send("Something broke!");
 });
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 3000;
 app.listen(port, "0.0.0.0", () => {
   console.log("Listening on Port" + port);
 });
