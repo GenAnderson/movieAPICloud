@@ -33,7 +33,7 @@ passport.use(
         })
         .catch((e) => {
           console.error(e);
-          return callback(error);
+          return callback(e);
         });
     }
   )
