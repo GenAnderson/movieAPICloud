@@ -22,10 +22,10 @@ const upload = multer({
   storage: multerS3({
     s3: s3,
     bucket: "imagebucketresizer",
-    acl: "public-read", // Set the ACL for the uploaded file
+    acl: "public-read",
     key: function (req, file, cb) {
-      // Define the key (filename) for the uploaded file
-      cb(null, "original-image-" + Date.now() + "-" + file.originalname);
+      console.log(file);
+      cb(null, "original-image/" + file.originalname);
     },
   }),
 });
@@ -245,7 +245,7 @@ app.get(
   }
 );
 
-// Update user
+// Update user from profile
 app.put(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
@@ -343,8 +343,8 @@ app.post("/users/:Username/upload", upload.single("file"), (req, res) => {
     return res.status(400).json({ error: "No file uploaded" });
   }
 
-  // Optionally, you can access the file URL in your S3 bucket
-  const fileUrl = file.location;
+  // Access the file URL in your S3 bucket
+  // const fileUrl = file.location;
 
   // Assuming the resized image has the same filename but with a different prefix
   const resizedFileKey = file.key.replace(
@@ -353,13 +353,25 @@ app.post("/users/:Username/upload", upload.single("file"), (req, res) => {
   );
 
   // Optionally, you can access the file URL of the resized image in your S3 bucket
-  const resizedFileUrl = `https://imagebucketresizer.s3.amazonaws.com/${resizedFileKey}`;
+  // const resizedFileUrl = `https://imagebucketresizer.s3.amazonaws.com/${resizedFileKey}`;
 
   res.json({
     message: "File uploaded and resized successfully",
-    fileUrl,
-    resizedFileUrl,
   });
+});
+
+// list all objects in a bucket
+app.get("/users/:Username/listObjects", async (req, res) => {
+  const bucketName = "imagebucketresizer";
+  const folderPath = "resized-original-image";
+  const params = { Bucket: bucketName, Prefix: folderPath };
+
+  try {
+    const data = await s3.listObjects(params).promise();
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
 // Delete a user
