@@ -47,6 +47,7 @@ let allowedOrigins = [
   "https://bestmovielist.netlify.app",
   "https://genanderson.github.io",
   "http://myflixclient-bucket.s3-website-us-east-1.amazonaws.com",
+  "http://movieclientsides3.s3-website-us-east-1.amazonaws.com",
 ];
 
 app.use(
@@ -79,10 +80,14 @@ const Users = Models.User;
 // });
 
 // allows mongoose to connect to atlas db online
-mongoose.connect(process.env.CONNECTION_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+// mongoose.connect(process.env.CONNECTION_URI, {
+//   useNewUrlParser: true,
+//  useUnifiedTopology: true,
+// });
+
+// allows mongoose to connect to mongodb ec2 instance
+const uri = "mongodb://10.0.0.20:27017/myFlixDB";
+mongoose.connect(uri, {});
 
 // welcome page response to user
 app.get("/", (req, res) => {
@@ -232,6 +237,7 @@ app.get(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
   function (req, res) {
+    console.log(req, res);
     Users.findOne({ Username: req.params.Username })
       .then(function (user) {
         if (res.status(201)) {
@@ -245,7 +251,7 @@ app.get(
   }
 );
 
-// Update user from profile
+// Update user
 app.put(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
@@ -336,28 +342,33 @@ app.delete(
   }
 );
 
-// Add image to user profile
+// Add image to user
 app.post("/users/:Username/upload", upload.single("file"), (req, res) => {
-  const file = req.file;
-  if (!file) {
-    return res.status(400).json({ error: "No file uploaded" });
+  try {
+    const file = req.file;
+    if (!file) {
+      return res.status(400).json({ error: "No file uploaded" });
+    }
+
+    // Access the file URL in your S3 bucket
+    // const fileUrl = file.location;
+
+    // Assuming the resized image has the same filename but with a different prefix
+    const resizedFileKey = file.key.replace(
+      "original-image",
+      "resized-original-images"
+    );
+
+    // Access the file URL of the resized image in your S3 bucket
+    // const resizedFileUrl = `https://imagebucketresizer.s3.amazonaws.com/${resizedFileKey}`;
+
+    res.json({
+      message: "File uploaded and resized successfully",
+    });
+  } catch (error) {
+    console.error("Error during image upload:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
-
-  // Access the file URL in your S3 bucket
-  // const fileUrl = file.location;
-
-  // Assuming the resized image has the same filename but with a different prefix
-  const resizedFileKey = file.key.replace(
-    "original-image",
-    "resized-original-images"
-  );
-
-  // Optionally, you can access the file URL of the resized image in your S3 bucket
-  // const resizedFileUrl = `https://imagebucketresizer.s3.amazonaws.com/${resizedFileKey}`;
-
-  res.json({
-    message: "File uploaded and resized successfully",
-  });
 });
 
 // list all objects in a bucket
